@@ -1,0 +1,24 @@
+{
+  "name": "forkify",
+  "version": "1.0.0",
+  "description": "forkify project",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ordash/Forkify.git"
+  },
+  "author": "Ordash",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ordash/Forkify/issues"
+  },
+  "homepage": "https://github.com/Ordash/Forkify#readme",
+  "devDependencies": {
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {}
+}
