@@ -7,14 +7,13 @@ export default class Search {
     }
 
     async getResults() {
-        console.log(`${config.chuckNorris.searchUrl}?query=${this.query}`);
+        //console.log(`${config.chuckNorris.searchUrl}?query=${this.query}`);
         try {
-            const res = await axios.get(
-                `${config.chuckNorris.searchUrl}?query=${this.query}`, config.chuckNorris.headers);
-            //const res = await axios(`${config.proxy}https://www.food2fork.com///api/search?key=${config.recipeKey}&q=${this.query}`);
-
-            this.result = res.data.result;
-            //console.log(this.result);
+            // const res = await axios.get(
+            //     `${config.chuckNorris.searchUrl}?query=${this.query}`, config.chuckNorris.headers);
+            //const res = await axios(`${config.proxy}/${config.recipeURL}/search?key=${config.recipeKey}&q=${this.query}`);
+            const res = await axios(`${config.mockRecipeURL}/search?key=${config.recipeKey}&q=${this.query}`);
+            this.result = res.data.recipes;
         } catch (error) {
             console.log(error);
         }

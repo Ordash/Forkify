@@ -440,7 +440,8 @@ body {
   padding: 3rem 4rem;
   display: flex;
   flex-direction: column; }
-  .shopping__list {
+  .shopping__list::-webkit-scrollbar {
+    display: none;
     list-style: none;
     max-height: 77rem;
     overflow: scroll; }
@@ -474,6 +475,7 @@ body {
       font-size: 1.2rem; }
   .shopping__description {
     flex: 1;
+    font-weight: bold;
     font-size: 1.3rem;
     margin-top: .4rem;
     margin-right: 1.5rem; }

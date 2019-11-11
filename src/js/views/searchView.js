@@ -6,20 +6,29 @@ export const clearInput = () => {
     elements.searchInput.value = '';
 }
 
+export const highlightSelected = id => {
+    const resultsArr = Array.from(document.querySelectorAll('.results__link'));
+    resultsArr.forEach(el => {
+        el.classList.remove('results__link--active');
+    })
+    document.querySelector(`.results__link[href*="${id}"]`).classList.add('results__link--active')
+}
+
 export const clearResults = () => {
     elements.searchResList.innerHTML = '';
+    elements.searchResPages.innerHTML = '';
 }
 
 const renderRecipe = recipe => {
     const markup = `
         <li>
-            <a class="results__link" href="#${recipe.id}">
+            <a class="results__link" href="#${recipe.recipe_id}">
                 <figure class="results__fig">
-                    <img src="${recipe.icon_url}" alt="Test">
+                    <img src="${recipe.image_url}" alt="Test">
                 </figure>
                 <div class="results__data">
-                    <h4 class="results__name">${shortenString(recipe.value)}</h4>
-                    <p class="results__author">The Pioneer Woman</p>
+                    <h4 class="results__name">${shortenString(recipe.title)}</h4>
+                    <p class="results__author">${recipe.publisher}</p>
                 </div>
             </a>
         </li>
@@ -32,7 +41,7 @@ const renderRecipe = recipe => {
  * @param {*} string
  * @param {*} limit
  */
-const shortenString = (string, limit = 17) => {
+export const shortenString = (string, limit = 17) => {
     const newString = [];
     if (string.length > limit) {
         string.split(' ').reduce((acc, cur) => {
@@ -49,10 +58,10 @@ const shortenString = (string, limit = 17) => {
 
 const createButton = (page, type) => `
     <button class="btn-inline results__btn--${type}" data-goto=${type === 'prev' ? page - 1 : page + 1}>
+        <span>Page ${type === 'prev' ? page - 1 : page + 1}</span>
         <svg class="search__icon">
             <use href="img/icons.svg#icon-triangle-${type === 'prev' ? 'left' : 'right'}"></use>
         </svg>
-        <span>Page ${type === 'prev' ? page - 1 : page + 1}</span>
     </button>
 `;
 
@@ -66,8 +75,7 @@ const renderButtons = (page, numResults, resPerPages) => {
     } else if (page < pages) {
         // Both
         button = `
-            ${createButton(page, 'prev')}
-            ${createButton(page, 'next')}
+            ${createButton(page, 'prev')}${createButton(page, 'next')}
         `;
     } else if (page === pages && pages > 1) {
         // Only button to go the prev
@@ -82,5 +90,5 @@ export const renderResults = (recipes, page = 1, resPerPage = 10) => {
 
     recipes.slice(start, end).forEach(renderRecipe);
 
-    renderButtons(page, recipes.length, 5);
+    renderButtons(page, recipes.length, resPerPage);
 }
